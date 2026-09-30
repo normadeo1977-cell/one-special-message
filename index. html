@@ -1,0 +1,923 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>For Our Amazing Teacher 💐</title>
+
+<style>
+/* =========================
+   BASIC SETUP
+========================= */
+
+* {
+    box-sizing: border-box;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    min-height: 100%;
+    font-family: "Trebuchet MS", Arial, sans-serif;
+    overflow-x: hidden;
+}
+
+body {
+    background: #10182f;
+    color: white;
+}
+
+/* =========================
+   LOADING SCREEN
+========================= */
+
+#loading {
+    position: fixed;
+    inset: 0;
+    background: #10182f;
+    z-index: 9999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    transition: opacity 1s;
+}
+
+.loading-book {
+    font-size: 65px;
+    animation: bounce 1s infinite alternate;
+}
+
+#loading p {
+    font-size: 18px;
+    letter-spacing: 2px;
+}
+
+@keyframes bounce {
+    from {
+        transform: translateY(0);
+    }
+    to {
+        transform: translateY(-20px);
+    }
+}
+
+/* =========================
+   STARS
+========================= */
+
+.star {
+    position: fixed;
+    width: 3px;
+    height: 3px;
+    background: white;
+    border-radius: 50%;
+    animation: twinkle 2s infinite alternate;
+    z-index: 1;
+}
+
+@keyframes twinkle {
+    from {
+        opacity: .2;
+        transform: scale(.6);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1.4);
+    }
+}
+
+/* =========================
+   MAIN SCENE
+========================= */
+
+.scene {
+    min-height: 100vh;
+    position: relative;
+    overflow: hidden;
+    background:
+        radial-gradient(circle at top, #293d72 0%, #141d3a 45%, #080d1e 100%);
+}
+
+/* =========================
+   FLOATING DECORATIONS
+========================= */
+
+.float {
+    position: fixed;
+    z-index: 2;
+    pointer-events: none;
+    opacity: .8;
+    animation: floating 6s ease-in-out infinite;
+}
+
+.book {
+    font-size: 35px;
+}
+
+.pencil {
+    font-size: 30px;
+}
+
+@keyframes floating {
+    0%,100% {
+        transform: translateY(0) rotate(-5deg);
+    }
+    50% {
+        transform: translateY(-25px) rotate(5deg);
+    }
+}
+
+/* =========================
+   INTRO
+========================= */
+
+.intro {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 25px;
+    position: relative;
+    z-index: 5;
+}
+
+.intro-box {
+    max-width: 700px;
+    width: 100%;
+}
+
+.date {
+    color: #ffd166;
+    font-size: 15px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+}
+
+.intro h1 {
+    font-family: Georgia, serif;
+    font-size: clamp(42px, 10vw, 85px);
+    line-height: .95;
+    margin: 0;
+    background: linear-gradient(90deg, #fff, #ffd166, #ff9f9f, #fff);
+    background-size: 300%;
+    -webkit-background-clip: text;
+    color: transparent;
+    animation: gradientMove 5s infinite;
+}
+
+@keyframes gradientMove {
+    0% { background-position: 0%; }
+    50% { background-position: 100%; }
+    100% { background-position: 0%; }
+}
+
+.intro p {
+    font-size: 19px;
+    color: #dce4ff;
+    margin: 25px auto;
+    max-width: 550px;
+    line-height: 1.7;
+}
+
+.start-btn {
+    border: none;
+    padding: 17px 35px;
+    border-radius: 50px;
+    background: linear-gradient(135deg, #ff758c, #ff7eb3);
+    color: white;
+    font-size: 17px;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 10px 30px rgba(255,117,140,.35);
+    transition: .3s;
+}
+
+.start-btn:hover {
+    transform: translateY(-5px) scale(1.05);
+}
+
+/* =========================
+   CLASSROOM
+========================= */
+
+.classroom {
+    min-height: 100vh;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    padding: 30px 20px;
+    position: relative;
+    z-index: 5;
+}
+
+.classroom.active {
+    display: flex;
+}
+
+.room {
+    width: 100%;
+    max-width: 900px;
+}
+
+/* Blackboard */
+
+.board {
+    background: #172c25;
+    border: 14px solid #8b5e34;
+    border-radius: 8px;
+    min-height: 400px;
+    padding: 40px;
+    box-shadow:
+        0 20px 50px rgba(0,0,0,.5),
+        inset 0 0 30px rgba(255,255,255,.04);
+    position: relative;
+}
+
+.board-title {
+    text-align: center;
+    font-family: "Comic Sans MS", cursive;
+    font-size: clamp(28px, 6vw, 52px);
+    color: #fff;
+    margin-bottom: 30px;
+}
+
+.board-line {
+    width: 80%;
+    height: 2px;
+    background: rgba(255,255,255,.5);
+    margin: auto;
+}
+
+.board-message {
+    margin: 35px auto;
+    max-width: 700px;
+    font-family: "Comic Sans MS", cursive;
+    font-size: clamp(20px, 4vw, 30px);
+    line-height: 1.7;
+    color: #fff;
+    text-align: center;
+}
+
+.chalk {
+    position: absolute;
+    right: 20px;
+    bottom: 15px;
+    font-size: 28px;
+}
+
+/* =========================
+   ENVELOPE
+========================= */
+
+.envelope-area {
+    display: flex;
+    justify-content: center;
+    margin-top: 35px;
+}
+
+.envelope {
+    width: 260px;
+    height: 170px;
+    position: relative;
+    cursor: pointer;
+    transition: transform .5s;
+}
+
+.envelope:hover {
+    transform: translateY(-10px);
+}
+
+.envelope-back {
+    position: absolute;
+    inset: 0;
+    background: #f7c6a3;
+    border-radius: 8px;
+    box-shadow: 0 15px 35px rgba(0,0,0,.4);
+}
+
+.flap {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 0;
+    border-left: 130px solid transparent;
+    border-right: 130px solid transparent;
+    border-top: 95px solid #eaa27d;
+    transform-origin: top;
+    transition: transform .8s;
+    z-index: 4;
+}
+
+.paper {
+    position: absolute;
+    background: #fffdf4;
+    width: 230px;
+    height: 150px;
+    left: 15px;
+    top: 10px;
+    border-radius: 5px;
+    color: #333;
+    padding: 20px;
+    text-align: center;
+    z-index: 2;
+    transition: transform .8s;
+    font-family: Georgia, serif;
+}
+
+.envelope.open .flap {
+    transform: rotateX(180deg);
+}
+
+.envelope.open .paper {
+    transform: translateY(-115px);
+}
+
+.heart {
+    position: absolute;
+    z-index: 5;
+    left: 50%;
+    top: 65%;
+    transform: translate(-50%, -50%);
+    font-size: 35px;
+}
+
+/* =========================
+   MESSAGE
+========================= */
+
+.message-section {
+    display: none;
+    min-height: 100vh;
+    padding: 80px 20px;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.message-section.active {
+    display: flex;
+}
+
+.message-card {
+    background: rgba(255,255,255,.08);
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(255,255,255,.15);
+    max-width: 750px;
+    width: 100%;
+    padding: 45px 30px;
+    border-radius: 30px;
+    box-shadow: 0 20px 60px rgba(0,0,0,.35);
+}
+
+.message-card h2 {
+    font-family: Georgia, serif;
+    color: #ffd166;
+    font-size: clamp(32px, 7vw, 55px);
+}
+
+.typewriter {
+    font-size: 20px;
+    line-height: 1.9;
+    color: #eef2ff;
+    min-height: 180px;
+}
+
+.signature {
+    margin-top: 30px;
+    font-family: "Brush Script MT", cursive;
+    font-size: 32px;
+    color: #ffb4c6;
+}
+
+/* =========================
+   FINAL SURPRISE
+========================= */
+
+.final {
+    display: none;
+    min-height: 100vh;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 30px;
+    position: relative;
+}
+
+.final.active {
+    display: flex;
+}
+
+.final h2 {
+    font-size: clamp(35px, 8vw, 70px);
+    font-family: Georgia, serif;
+}
+
+.final p {
+    font-size: 20px;
+    line-height: 1.8;
+    color: #dce4ff;
+}
+
+.big-heart {
+    font-size: 100px;
+    animation: heartbeat 1s infinite;
+}
+
+@keyframes heartbeat {
+    0%,100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.2);
+    }
+}
+
+/* =========================
+   FLOWERS
+========================= */
+
+.flower {
+    position: fixed;
+    top: -50px;
+    font-size: 25px;
+    z-index: 20;
+    pointer-events: none;
+    animation: fall linear forwards;
+}
+
+@keyframes fall {
+    to {
+        transform: translateY(110vh) rotate(720deg);
+    }
+}
+
+/* =========================
+   CONFETTI
+========================= */
+
+.confetti {
+    position: fixed;
+    width: 10px;
+    height: 15px;
+    top: -20px;
+    z-index: 50;
+    animation: confettiFall 3s linear forwards;
+}
+
+@keyframes confettiFall {
+    to {
+        transform: translateY(110vh) rotate(720deg);
+        opacity: 0;
+    }
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media(max-width:600px) {
+
+    .board {
+        padding: 25px 15px;
+        border-width: 9px;
+    }
+
+    .board-message {
+        font-size: 19px;
+    }
+
+    .envelope {
+        transform: scale(.85);
+    }
+
+    .message-card {
+        padding: 35px 20px;
+    }
+
+    .typewriter {
+        font-size: 17px;
+    }
+}
+
+</style>
+</head>
+
+
+<body>
+
+<!-- =========================
+     LOADING
+========================= -->
+
+<div id="loading">
+    <div class="loading-book">📚</div>
+    <p>Preparing a little surprise...</p>
+</div>
+
+
+<div class="scene">
+
+    <!-- Floating decorations -->
+
+    <div class="float book" style="left:8%; top:18%;">📚</div>
+    <div class="float pencil" style="right:10%; top:25%;">✏️</div>
+    <div class="float book" style="left:15%; top:70%;">📖</div>
+    <div class="float pencil" style="right:15%; top:75%;">🖊️</div>
+
+
+    <!-- =========================
+         INTRO
+    ========================= -->
+
+    <section class="intro" id="intro">
+
+        <div class="intro-box">
+
+            <div class="date">
+                October 5, 2026
+            </div>
+
+            <h1>
+                For Our<br>
+                Amazing Teacher
+            </h1>
+
+            <p>
+                There are lessons written in books...
+                and there are lessons written in our hearts.
+            </p>
+
+            <button class="start-btn" onclick="startGift()">
+                ✨ Open Your Surprise
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         CLASSROOM
+    ========================= -->
+
+    <section class="classroom" id="classroom">
+
+        <div class="room">
+
+            <div class="board">
+
+                <div class="board-title">
+                    HAPPY WORLD TEACHERS' DAY! 🌎
+                </div>
+
+                <div class="board-line"></div>
+
+                <div class="board-message">
+                    "A great teacher doesn't just teach...
+                    <br>
+                    they inspire, encourage,
+                    <br>
+                    and change lives."
+                </div>
+
+                <div class="chalk">
+                    🧑‍🏫 ✏️ 📚
+                </div>
+
+            </div>
+
+
+            <!-- Envelope -->
+
+            <div class="envelope-area">
+
+                <div class="envelope" id="envelope"
+                     onclick="openEnvelope()">
+
+                    <div class="envelope-back"></div>
+
+                    <div class="paper">
+                        💌<br><br>
+                        A special message<br>
+                        just for you...
+                    </div>
+
+                    <div class="flap"></div>
+
+                    <div class="heart">
+                        ❤️
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         MESSAGE
+    ========================= -->
+
+    <section class="message-section" id="message">
+
+        <div class="message-card">
+
+            <h2>
+                Dear Teacher... 🌷
+            </h2>
+
+            <div class="typewriter" id="typewriter"></div>
+
+            <div class="signature">
+                With love and gratitude,<br>
+                Your Students ❤️
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         FINAL
+    ========================= -->
+
+    <section class="final" id="final">
+
+        <div>
+
+            <div class="big-heart">
+                ❤️
+            </div>
+
+            <h2>
+                You Matter.
+            </h2>
+
+            <p>
+                Your words become memories.<br>
+                Your lessons become knowledge.<br>
+                Your kindness becomes inspiration.
+            </p>
+
+            <p>
+                <strong>
+                    Happy World Teachers' Day! 🌎📚
+                </strong>
+            </p>
+
+        </div>
+
+    </section>
+
+</div>
+
+
+<script>
+
+/* =========================
+   LOADING SCREEN
+========================= */
+
+window.addEventListener("load", function() {
+
+    setTimeout(function() {
+
+        document.getElementById("loading").style.opacity = "0";
+
+        setTimeout(function() {
+            document.getElementById("loading").style.display = "none";
+        }, 1000);
+
+    }, 1800);
+
+});
+
+
+/* =========================
+   CREATE STARS
+========================= */
+
+for(let i = 0; i < 90; i++) {
+
+    const star = document.createElement("div");
+
+    star.className = "star";
+
+    star.style.left = Math.random() * 100 + "%";
+    star.style.top = Math.random() * 100 + "%";
+
+    star.style.animationDelay =
+        Math.random() * 3 + "s";
+
+    document.body.appendChild(star);
+}
+
+
+/* =========================
+   START GIFT
+========================= */
+
+function startGift() {
+
+    document.getElementById("intro").style.display = "none";
+
+    document.getElementById("classroom")
+        .classList.add("active");
+
+}
+
+
+/* =========================
+   OPEN ENVELOPE
+========================= */
+
+function openEnvelope() {
+
+    const envelope =
+        document.getElementById("envelope");
+
+    if(envelope.classList.contains("open")) {
+        return;
+    }
+
+    envelope.classList.add("open");
+
+    createFlowers();
+
+    setTimeout(function() {
+
+        document.getElementById("classroom")
+            .style.display = "none";
+
+        document.getElementById("message")
+            .classList.add("active");
+
+        typeMessage();
+
+    }, 1800);
+
+}
+
+
+/* =========================
+   TYPEWRITER
+========================= */
+
+const message =
+`Thank you for every lesson you have taught us.
+
+Thank you for the patience you show when we don't understand something the first time.
+
+Thank you for believing in us, even during the moments when we don't believe in ourselves.
+
+You have given us more than assignments, exams, and grades.
+
+You have given us confidence, knowledge, memories, and inspiration.
+
+Some teachers teach subjects.
+
+But the truly special ones teach us how to believe in ourselves.
+
+And for that...
+
+we will always be grateful. ❤️`;
+
+
+let index = 0;
+
+function typeMessage() {
+
+    const box =
+        document.getElementById("typewriter");
+
+    if(index < message.length) {
+
+        box.innerHTML +=
+            message.charAt(index) === "\n"
+            ? "<br>"
+            : message.charAt(index);
+
+        index++;
+
+        setTimeout(typeMessage, 35);
+
+    } else {
+
+        setTimeout(showFinal, 2500);
+
+    }
+
+}
+
+
+/* =========================
+   FINAL SCREEN
+========================= */
+
+function showFinal() {
+
+    document.getElementById("message")
+        .style.display = "none";
+
+    document.getElementById("final")
+        .classList.add("active");
+
+    createConfetti();
+
+}
+
+
+/* =========================
+   FALLING FLOWERS
+========================= */
+
+function createFlowers() {
+
+    const flowers = [
+        "🌸",
+        "🌷",
+        "🌹",
+        "🌼",
+        "💐",
+        "✨",
+        "❤️"
+    ];
+
+    for(let i = 0; i < 45; i++) {
+
+        const flower =
+            document.createElement("div");
+
+        flower.className = "flower";
+
+        flower.innerText =
+            flowers[Math.floor(
+                Math.random() * flowers.length
+            )];
+
+        flower.style.left =
+            Math.random() * 100 + "vw";
+
+        flower.style.animationDuration =
+            (3 + Math.random() * 4) + "s";
+
+        flower.style.animationDelay =
+            Math.random() * 2 + "s";
+
+        document.body.appendChild(flower);
+
+        setTimeout(function() {
+            flower.remove();
+        }, 8000);
+
+    }
+
+}
+
+
+/* =========================
+   CONFETTI
+========================= */
+
+function createConfetti() {
+
+    for(let i = 0; i < 120; i++) {
+
+        const piece =
+            document.createElement("div");
+
+        piece.className = "confetti";
+
+        piece.style.left =
+            Math.random() * 100 + "vw";
+
+        piece.style.animationDuration =
+            (2 + Math.random() * 3) + "s";
+
+        piece.style.animationDelay =
+            Math.random() * 2 + "s";
+
+        document.body.appendChild(piece);
+
+        setTimeout(function() {
+            piece.remove();
+        }, 6000);
+
+    }
+
+}
+
+</script>
+
+</body>
+</html>
